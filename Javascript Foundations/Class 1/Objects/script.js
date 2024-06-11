@@ -2,6 +2,8 @@
 
 //unlike arrays objects are unordered
 
+//objects can be more nested
+
 // const users = {
 //     firstname:"chitresh",
 //     gender: "male"
@@ -12,7 +14,11 @@
 // this is read as array of objects
 const allusers = [{
   firstname : "chitresh",
- gender : "male"
+ gender : "male",
+//  metadata:{
+//     age: 21,
+//     address: "lok"  
+//  }
 },
 
 {
