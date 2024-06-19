@@ -13,4 +13,3 @@ console.log("hi there"); // this will run first since file fetch is an sync prog
 // only one thread can execute at a time
 
 //callback only make sense in an async function
-
