@@ -14,7 +14,6 @@ let firstName = "chitresh";
 let age = 20;
 let ismarried = false;
 
-
 //combining a raw string and variables to get the final output
 console.log("This persons name is " + firstName  + " and their age is " + age)
 
