@@ -16,7 +16,7 @@ console.log(user["firstname"])
 
 const users = '{"firstname":"chitresh","age":24,"gender":"male"}';
 
-console.log(user)
+console.log(users)
 
 
 //two functionsS

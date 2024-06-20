@@ -76,6 +76,3 @@ runningoutofnames.forEach(damn);
 // second option
 
 // runningoutofnames.forEach(item => console.log(item));
-
-
-
