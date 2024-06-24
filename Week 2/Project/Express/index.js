@@ -15,6 +15,7 @@ const app = express();
 //very important line for post request
 app.use(express.json()); 
 
+//user array
 
 const users = [{
     name : "chitresh",
@@ -70,12 +71,33 @@ app.post('/',function(req,res){
   })
 })
 
+//replace all kidneys and make it healthy
+
 app.put('/',function(req,res){
-    
+    for(let i = 0; i < users[0].kidneys.length;i++){
+        users[0].kidneys[i].healthy = true;
+    }
+    res.json({}) //this is must
 })
 
+
+//removing all the kidneys
+// amytime i find a healthy kidney push that to the new kidneys array
+
 app.delete('/',function(req,res){
-    
+    const newkidneys = []; //empty array
+
+    //iterate over all the kidneys
+    for(let i = 0; i < users[0].kidneys.length;i++){
+
+      if(users[0].kidneys[i].healthy){ //kidney is healthy
+        newkidneys.push({
+            healthy:true
+        })
+      }
+    }
+    users[0].kidneys = newkidneys;
+    res.json({msg:"done"});
 })
 
 app.listen(3000);
