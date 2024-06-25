@@ -85,19 +85,48 @@ app.put('/',function(req,res){
 // amytime i find a healthy kidney push that to the new kidneys array
 
 app.delete('/',function(req,res){
-    const newkidneys = []; //empty array
+    
+    if(isthereatleastoneunhealthykidney()) {
+        const newkidneys = []; //empty array
 
-    //iterate over all the kidneys
-    for(let i = 0; i < users[0].kidneys.length;i++){
-
-      if(users[0].kidneys[i].healthy){ //kidney is healthy
-        newkidneys.push({
-            healthy:true
-        })
-      }
+        //iterate over all the kidneys
+        for(let i = 0; i < users[0].kidneys.length;i++){
+    
+          if(users[0].kidneys[i].healthy){ //kidney is healthy
+            newkidneys.push({
+                healthy:true
+            })
+          }
+        }
+        users[0].kidneys = newkidneys;
+        res.json({msg:"done"});
     }
-    users[0].kidneys = newkidneys;
-    res.json({msg:"done"});
+    else{
+       res.status(411).json({
+        msg: "you have no bad kidney"
+       });
+    }
+    
+    
 })
+
+function isthereatleastoneunhealthykidney(){
+    //edge case
+
+    
+    //when ever there comes a request to delete a unhealty kidneys when 
+    // there are no unhealty kidneys you should return a
+    // status code 411 :- wrong input 
+
+    let atleastoneunhealtykidney = false;
+    for(let i = 0; i < users[0].kidneys.length;i++){
+        if(!users[0].kidneys[i].healthy){
+            atleastoneunhealtykidney = true;
+        }
+    }
+    return atleastoneunhealtykidney;
+}
+
+
 
 app.listen(3000);
