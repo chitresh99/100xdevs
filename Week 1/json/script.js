@@ -1,6 +1,6 @@
 //json -> javascript object notation
 
-const { json } = require("stream/consumers");
+// const { json } = require("stream/consumers");
 
 const user = {
     firstname :"chitresh",
