@@ -1,19 +1,7 @@
-const express = require("express")
-
-const app = express();
-
+const express = require('express');
+const fs = require('fs');
 const path = require('path');
-
-const fs = require("fs");
-
-app.use(express.json());
-
-// fs.readFile("filename","utf-8",function(err,data){
-//     console.log(data);
-// })
-
-// :filename is the route parameter in the route path.
-// req.params.filename retrieves the value of this route parameter.
+const app = express();
 
 app.get('/files', function (req, res) {
     fs.readdir(path.join(__dirname, './files/'), (err, files) => {
@@ -23,7 +11,6 @@ app.get('/files', function (req, res) {
     res.json(files);
     });
 });
-
 
 app.get('/file/:filename', function (req, res) {
     const filepath = path.join(__dirname, './files/', req.params.filename);
@@ -40,9 +27,5 @@ app.all('*', (req, res) => {
     res.status(404).send('Route not found');
 });
 
-
 module.exports = app;
 app.listen(3000);
-
-
-//http://localhost:3000/file/a.txt
