@@ -23,4 +23,7 @@ module.exports = app;
 
 Think of a route parameter as a variable in the URL that can change each time someone accesses it. The params object (req.params) is where Express stores these values so you can use them in your route handlers.
 
+:filename is the route parameter.
+req.params.filename stores the value passed in the URL for that parameter.
+
 Check
