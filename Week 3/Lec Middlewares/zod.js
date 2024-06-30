@@ -5,6 +5,13 @@ const app = express();
 
 const schema = zod.array(zod.number());
 
+const schema2 = zod.object({
+    email:zod.string(),
+    password:zod.string(),
+    country: zod.literal("IN").or(zod.literal("US")),
+    kidneys:zod.array(zod.number())
+})
+
 app.use(express.json());
 
 app.post("/healthcheckup",function(req,res){
