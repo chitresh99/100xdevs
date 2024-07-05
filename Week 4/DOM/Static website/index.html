@@ -7,23 +7,45 @@
     <title>Add two numbers</title>
 </head>
 
-<body>
-
-    <div class="firstnumber">
-        <input type="text" placeholder="first number">
-      
-    </input>
-    </div>
-   
-    <div class="secondnumber">
-    <input type="text" placeholder="second number">
-      
-    </input>
-    </div>
+<script>
+    // function populatediv() {
+    //   const element = document.getElementById("finalsum")
+    //   element.innerHTML = "hello world"
+    // }
+    
+    function populatediv(){
+        let a = document.getElementById('firstnumber').value;
+        let b = document.getElementById('secondnumber').value;
+        
+        a = Number(a);
+        b = Number (b);
+        
+        const sum = document.getElementById('finalsum');
+        sum.innerHTML = a + b;
+    }
     
 
-    <button>Calculate sum</button>
+</script>
 
+<body>
+    <input id = "firstnumber" type="number" placeholder="first number"> 
+      
+    </input>
+    <br></br>
+    
+   
+   
+    <input id = "secondnumber" type="number" placeholder="second number">
+      
+    </input>
+    <br></br>    
+
+    <button onclick="populatediv()">Calculate sum</button>
+    <br></br>
+    
+    <div id="finalsum">
+        
+    </div>
 </body>
 
 </html>
