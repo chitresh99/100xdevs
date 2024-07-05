@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add two numbers</title>
+</head>
+
+<script>
+
+    //first time it encounters clear timeout nothing will happen since no clock is running so it ignores
+    //and the first clock actually starts
+
+
+    let timeout;
+    function debouncepopulatediv() {
+        // delay the call for populate div until i have not been called for 100 milli seconds
+        //and i have been called atleast once
+        //if the debouncepopulatediv function get's called while the original clock is running stop 
+        //the original clock and restart the new clock
+
+        clearTimeout(timeout); //clear the old clock that was running 
+        timeout = setTimeout(function () {  //start the new clock
+            populatediv2();
+        }, 1000);
+
+    }
+
+    // function populatediv() {
+
+    //     const a = document.getElementById('firstnumber').value;
+    //     const b = document.getElementById('secondnumber').value;
+
+    //     fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+    //         .then(function (response) {
+    //             response.text()
+    //                 .then(function (ans) {
+    //                     document.getElementById("finalsum").innerHTML = ans;
+    //                 })
+    //         });
+       
+    // }
+    async function populatediv2() {
+        const a = document.getElementById('firstnumber').value;
+        const b = document.getElementById('secondnumber').value;
+
+        const response = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b);
+        const sum = await response.text()
+        document.getElementById("finalsum").innerHTML = sum;
+    }
+    document.getElementById('firstnumber').addEventListener('input', debouncepopulatediv);
+    document.getElementById('secondnumber').addEventListener('input', debouncepopulatediv);
+</script>
+
+<body>
+   <input id="firstnumber" type="number" placeholder="First Number">
+    <br>
+    <input id="secondnumber" type="number" placeholder="Second Number">
+    <br>
+    <div id="finalsum"></div>
+</body>
+
+</html>
+
+<!-- 
+https://github.com/hkirat/sum-server/blob/master/index.js -->
+
+<!-- https://sum-server.100xdevs.com/sum?a=1&b=2000 -->

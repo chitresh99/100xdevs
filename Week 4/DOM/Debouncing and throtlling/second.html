@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Sum Calculator</title>
+</head>
+<body>
+    <input id="firstnumber" type="number" placeholder="First Number">
+    <br>
+    <input id="secondnumber" type="number" placeholder="Second Number">
+    <br>
+    <div id="finalsum"></div>
+
+    <script>
+        let timeout;
+
+        function debouncePopulateDiv() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                populatediv();
+            }, 1000); // Adjust debounce delay as needed
+        }
+
+        async function populatediv() {
+            const a = document.getElementById('firstnumber').value;
+            const b = document.getElementById('secondnumber').value;
+
+            try {
+                const response = await fetch(`https://sum-server.100xdevs.com/sum?a=${a}&b=${b}`);
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const sum = await response.text();
+                document.getElementById("finalsum").innerHTML = sum;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById("finalsum").innerHTML = 'Error fetching data';
+            }
+        }
+
+        // Add event listeners to trigger debounce on input events
+        document.getElementById('firstnumber').addEventListener('input', debouncePopulateDiv);
+        document.getElementById('secondnumber').addEventListener('input', debouncePopulateDiv);
+    </script>
+</body>
+</html>
