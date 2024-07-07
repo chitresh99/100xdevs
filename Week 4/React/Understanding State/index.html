@@ -49,14 +49,22 @@
             }
         }
 
+        window.setInterval(async function(){
+            const res = await fetch ("https://sum-server.100xdevs.com/todos");
+            const json = await res.json();
+            updatedomacctostate(json.todos)
+        },5000)
+
         // Example usage:
-        updatedomacctostate([{
-            title: "go to the gym",
-            description: "go to gym from 5 - 7",
-            id: 1
-        }]);
+        // updatedomacctostate([{
+        //     title: "go to the gym",
+        //     description: "go to gym from 5 - 7",
+        //     id: 1
+        // }]);
 
     </script>
 </body>
 
 </html>
+
+<!-- LINK :- sum-server.100xdevs.com/todos -->
