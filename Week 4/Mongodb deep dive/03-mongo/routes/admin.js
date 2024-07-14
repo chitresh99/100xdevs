@@ -1,6 +1,6 @@
-const { Router } = require("express");
+const { Router, response } = require("express");
 const adminMiddleware = require("../middleware/admin");
-const {Admin} = require("../db")
+const { Admin, Course } = require("../db")
 const router = Router();
 
 // Admin Routes
@@ -21,22 +21,44 @@ router.post('/signup', async (req, res) => {
     // })
 
     await Admin.create({
-        username:username,
-        password:password
+        username: username,
+        password: password
     })
 
     res.json({
-        message : "Admin created successfully"
+        message: "Admin created successfully"
     })
 });
 
-router.post('/courses', adminMiddleware, (req, res) => {
-    // Implement course creation logic
+router.post('/courses', adminMiddleware, async (req, res) => {
+
+    // To make it more better we need zod
+
+    const title = req.body.title;
+    const description = req.body.description;
+    const imagelink = req.body.imagelink;
+    const price = req.body.price;
+
+    const newcourse = await Course.create({
+        title,
+        description,
+        imagelink,
+        price
+    }) 
+    res.json({
+        message: "course created succesfully", courseid: newcourse._id //this id is automatically created
+    })
+
+
 });
 
-router.get('/courses',(req, res) => {
+//fetching all courses
+router.get('/courses', adminMiddleware, async (req, res) => {
+    
+
+    const allcourses = await Course.find({});
     res.json({
-      courses:"cohort"
+        courses : allcourses
     })
 });
 
