@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const adminMiddleware = require("../middleware/admin");
 const {Admin, User} = require("../db");
-const jwt_secret = require("..");
+const jwt_secret = require("../config");
 const jwt = require("jsonwebtoken");
 const router = Router();
 
@@ -14,6 +14,9 @@ router.post('/signup', async (req, res) => {
     await Admin.create({
         username: username,
         password: password
+    })
+    res.json({
+        message:"user created succesfully"
     })
     
 });

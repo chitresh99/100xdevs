@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = require("../index");
+const {jwt_secret} = require("../config");
 
 function userMiddleware(req, res, next) {
     // Implement user auth logic
@@ -8,7 +8,7 @@ function userMiddleware(req, res, next) {
     const token = req.headers.authorization;
     const words = token.split(" "); // making an array of [bearer, asadsasda (token)]
     const jwtToken = words[1]; //get the token from the array 
-    const decodedvalue = jwt.verify(jwtToken,secret);
+    const decodedvalue = jwt.verify(jwtToken,jwt_secret);
 
     //username,type : "admin" | "user" //ideally
    
