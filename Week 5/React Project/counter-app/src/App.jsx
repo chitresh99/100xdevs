@@ -1,29 +1,31 @@
-import './App.css'
-//this is called a hook
+import './App.css';
 import { useState } from 'react';
 
-//defining the global state
-// let state =  {
-//     count : 0
-// }
-
-
-//button which renders state.count
-function App() {
-    
-    //initialising the state
-    const [count, setCount] = useState(0);
-
-    function onclickhander(){
-        setCount(count + 1); //setting the state
+// Button component should start with an uppercase letter
+function CustomButton(props) {
+    // Define the onclickhandler function
+    function onclickhandler() {
+        props.setCount(props.count + 1);
     }
-    
-    //returning the dynamic html
- return (
-  <div>
-  <button onClick={onclickhander}>Counter {count}</button>
-  </div>
- )
+
+    return (
+        <button onClick={onclickhandler}>
+            Counter: {props.count}
+        </button>
+    );
 }
 
-export default App
+// Main App component
+function App() {
+    // Initialize the state
+    const [count, setCount] = useState(0);
+
+    // Render the component
+    return (
+        <div>
+            <CustomButton count={count} setCount={setCount} />
+        </div>
+    );
+}
+
+export default App;
