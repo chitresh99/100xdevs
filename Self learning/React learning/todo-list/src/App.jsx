@@ -1,37 +1,37 @@
-import { useState } from "react"
-import "./styles.css"
+import { useState } from "react";
+import { Newtodoform } from "./newtodoform";
+import "./styles.css";
 
 export default function App() {
-  const [newItem,setNewItem] = useState("") 
-  {/*This line above is a hook in react*/}
-  return(
-    <>
-    <form className="new-item-form">
-    <div className="form-row">
-      <label htmlFor="item">New item</label>
-      <input value = {newItem}
-       onInput= {e => setNewItem(e.target.value)} 
-       type="text" id="item" />
-    </div>
-    <button className="btn">
-    Add
-    </button>
-  </form>
-  <h1 className="header">To do list</h1>
-  {/*rendering out our list*/}
-  <ul className="list">
-    <li>
-      <label>
-        <input type="checkbox"/>
-        Item 1
-      </label>
-      <button className="btn btn-danger">Delete</button>
-    </li>
-  </ul>
-  </>
-  )
-}
+  
+  const [todos, setTodos] = useState([]);
 
-//1) We created a label that says new item 
-//2) When used together with the <label> element, 
-//the for attribute specifies which form element a label is bound to.
+  
+
+  function deletetodo(id){
+    setTodos(currentTodos=> {
+      return currentTodos.filter(todo => todo.id !==id)
+    })
+  }
+
+  return (
+    <>
+    <Newtodoform />
+      <h1 className="header">To do list</h1>
+
+      <ul className="list">
+
+        {todos.length === 0 && "No Todos"}
+        {todos.map(todo => (
+          <li key={todo.id}>  {/*putting a key so we have some type of unique identifier*/}
+            <label>
+              <input type="checkbox" />
+              {todo.title}
+            </label>
+            <button onClick={() => deletetodo(todo.id)} className="btn btn-danger">Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
