@@ -1,30 +1,11 @@
-import React, { useState } from 'react';
-import './App.css';
+import { useState } from 'react'
 
-function Welcome({ name }) {
-  return <h1>Hello, {name}</h1>;
-}
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  );
-}
+import './App.css'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Welcome name="Sara" />
-        <Counter />
-      </header>
-    </div>
-  );
+  return(
+  <h1>Hi</h1> 
+  )
 }
 
-export default App;
+export default App
