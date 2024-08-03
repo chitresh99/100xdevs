@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback ,useEffect ,useRef} from 'react'
 import './App.css'
 
 function App() {
@@ -6,6 +6,38 @@ function App() {
   const [numberallowed, setnumberallowed] = useState(false) //by default they are not allowed
   const [charallowed, setcharallowed] = useState(false)
   const [password, setpassword] = useState('') //the password which we will be generating we will be setting this as empty
+  
+  const passwordRef = useRef(null)
+
+  const generatepassword = useCallback(() => {
+    let pass = ""
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwqyz"
+
+    if(numberallowed) str += "0123456789"
+    if(charallowed) str += "!@#$%^&*()_+"
+
+     //this loop will be running as many times as the lenght of the password
+     //and we will be inserting into the password
+
+     for(let i = 1 ; i < length ; i++ ){ //length is coming from our state and we are increasing it
+       const char =  Math.floor(Math.random() * str.length + 1) //math.random generates a random string and also here we adding adding + 1 since it might generate a zero
+       //we use Math.floor we get a proper round number
+       pass += str.charAt(char)
+     }
+
+     setpassword(pass)
+  },[length,numberallowed,charallowed]) //these dependicies shouldn't change
+  
+
+   useEffect(() => {
+    generatepassword()
+   },[length,numberallowed,charallowed]) //even if we don't pass anything here atleast all the code runs atleast once
+   
+   const copypassworstoclipboard = () => {
+    window.navigator.clipboard.writeText(password)
+    passwordRef.current?.setSelection()
+   }
+
 
   return (
     <>
@@ -16,9 +48,10 @@ function App() {
             value={password}
             className='outline-none w-full py-1 px-3'
             placeholder='Password'
+            ref={passwordRef}
             readOnly
           />
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
+          <button onClick={copypassworstoclipboard}className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
           <div
             className='flex text-sm gap-x-2'
           >
@@ -42,19 +75,19 @@ function App() {
           <input type="checkbox"
             defaultChecked={numberallowed}
             onChange={() => {
-              setnumberallowed((prev) => !prev) 
+              setnumberallowed((prev) => !prev)
             }}
             name="" id="" />
           <label htmlFor='number'>Numbers</label>
 
-          <input 
-          type="checkbox"
-          defaultChecked={charallowed}
-          onChange={() => {
-            setCharAllowed((prev) => !prev)
-          }}
-           name=""
-          id="" />
+          <input
+            type="checkbox"
+            defaultChecked={charallowed}
+            onChange={() => {
+              setcharallowed((prev) => !prev)
+            }}
+            name=""
+            id="" />
           <label htmlFor="charInput">Character</label>
 
         </div> {/*Third Div*/}
