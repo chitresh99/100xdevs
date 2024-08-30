@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-import exp from "constants";
+
 
 
 const app = express();
@@ -19,11 +19,26 @@ app.use(express.urlencoded({extended: true,limit:"16kb"}))
 
 //these are public assets for images
 app.use(express.static("public"))
-app.use(cookieParser())
+
 
 
 
 //to access the user's browser cookies and set the cookies
 app.use(cookieParser())
+
+//routes import
+
+import userRouter from './routes/user.routes.js'
+
+
+//routes declaration
+//route and controller
+//standard practice
+
+app.use("/api/v1/users",userRouter)
+
+// for postman ->  https://localhost:8000/users/register
+// /users is the prefix
+// user -> resigter
 
 export {app}
