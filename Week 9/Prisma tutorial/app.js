@@ -13,6 +13,10 @@ app.use(express.urlencoded({extended:true}));
 //cookie middleware
 app.use(cookieParser());
 
+const userRouter = require('./routes/user.route')
+
+app.use('/api',userRouter)
+
 app.listen(3000,()=>{
     console.log('server is running')
 });
